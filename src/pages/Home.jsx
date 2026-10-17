@@ -112,7 +112,7 @@ export default function Home() {
       image.onerror = () => settle(false, frameNumber);
 
       // FIX: Works with localhost and GitHub Pages.
-      image.src = `${import.meta.env.BASE_URL}frames/ezgif-frame-${frameNumber}.jpg`;
+      image.src = `${import.meta.env.BASE_URL}frames/ezgif-frame-${String(frameNumber).padStart(3, "0")}.jpg`;
     }
 
     return () => {
