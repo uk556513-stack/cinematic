@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -71,7 +70,7 @@ export default function Home() {
         successCount += 1;
       } else {
         console.error(
-          `Could not load frame ${frameNumber}: /frames/ezgif-frame-${frameNumber}.jpg`
+          `Could not load frame ${frameNumber}: ${import.meta.env.BASE_URL}frames/ezgif-frame-${frameNumber}.jpg`
         );
       }
 
@@ -112,7 +111,8 @@ export default function Home() {
       image.onload = () => settle(true, frameNumber);
       image.onerror = () => settle(false, frameNumber);
 
-      image.src = `/frames/ezgif-frame-${frameNumber}.jpg`;
+      // FIX: Works with localhost and GitHub Pages.
+      image.src = `${import.meta.env.BASE_URL}frames/ezgif-frame-${frameNumber}.jpg`;
     }
 
     return () => {
@@ -226,8 +226,6 @@ export default function Home() {
 
       const rect = spacer.getBoundingClientRect();
 
-      // At the top: spacer top is at the bottom of the viewport.
-      // At the end: spacer bottom has passed the top of the viewport.
       const totalDistance =
         spacer.offsetHeight + window.innerHeight;
 
@@ -278,8 +276,7 @@ export default function Home() {
 
   const rangeVisible =
     currentFrameIndex >= 160 && currentFrameIndex <= 210;
-
-  return (
+      return (
     <main className="apex-home">
       {!imagesLoaded && (
         <div className="apex-home-loader">
@@ -352,9 +349,12 @@ export default function Home() {
           }`}
         >
           <Gauge className="apex-spec-icon" />
+
           <div>
             <h4 className="apex-spec-title">MOVEMENT</h4>
-            <p className="apex-spec-value">PRECISION ENGINEERED</p>
+            <p className="apex-spec-value">
+              PRECISION ENGINEERED
+            </p>
           </div>
         </div>
 
@@ -364,6 +364,7 @@ export default function Home() {
           }`}
         >
           <BatteryCharging className="apex-spec-icon" />
+
           <div>
             <h4 className="apex-spec-title">CRAFTSMANSHIP</h4>
             <p className="apex-spec-value">TIMELESS QUALITY</p>
